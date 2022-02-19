@@ -58,6 +58,9 @@
                         <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm">
                             Editar
                         </a>
+                        <a href="{{ route('projects.destroy', $project->id) }}" class="btn btn-primary btn-sm">
+                            Deletar
+                        </a>
                     </span>
                 </td>
             </tr>

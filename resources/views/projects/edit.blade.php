@@ -33,10 +33,10 @@
 {{-- {{$origin}} --}}
 {{-- {{Route::currentRouteAction()}} --}}
 
-{{Route::currentRouteName()}}
+
 
 {{-- Save --}}
-<form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data">
+{{-- <form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data"> --}}
 
 
 @include('projects._partials.form')

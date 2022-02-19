@@ -6,17 +6,24 @@
     @endforeach
 </ul>
 @endif
+{{Route::currentRouteName()}}
 
 @if(route::currentRouteName() == 'projects.create')
     <form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data">
     @csrf
 @elseif(route::currentRouteName() == 'projects.edit')
-    <form action="{{ route('projects.update') }}" method="put" enctype="multipart/form-data">
-    @csrf
+    <form action="{{ route('projects.update', $project->id) }}" method="post" enctype="multipart/form-data">
+        @method('put')
+        @csrf
+@elseif(route::currentRouteName() == 'projects.destroy')
+    <form action="{{ route('projects.destroy', $project->id) }}" method="post" enctype="multipart/form-data">
+        @method('delete')
+        @csrf
+
 @endif
 <p>
         <label>ID</label><br>
-        <input type="text" name="id" value="@isset($project){{ $project->id ?? old('id')}}@endisset"
+        <input type="text" name="id" value="@isset($project){{ $project->id ?? old('$project->id')}}@endisset"
             {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
     </p>
     <p>
@@ -55,34 +62,33 @@
             {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
     </p>
     <tr>
-        @isset($project)
+        @if(Route::currentRouteName() == ('projects.index'))
         <td>
-            <span class="p-relative">
+            <span>
                 <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm ">
                     Visualizar
                 </a>
-    
+            </span>        
                 <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm">
-                    <span class="material-icons">
+                <span >
                         Alterar
                     </span>
                 </a>
-            </span>    
-        </td>
-
-        @endisset
-        
-        @if(Route::currentRouteName() == 'projects.create')
-           @include('projects._partials.button')
-        @endif 
-
-        @if(Route::currentRouteName() == 'projects.edit')
-            @include('projects._partials.button')
-            <a href="{{route('projects.update', $projects->id)}}" > alterar</a>
-        @endif
+                <a href="{{ route('projects.destroy', $project->id) }}" class="btn btn-primary btn-sm">
+                                    
+                                        Deletar
+                                  
+                                </a>
+                            </td>
+                            
+                            @endif
+                         
         
         
     </tr>
+    @if(Route::currentRouteName() != 'projects.show')
+        <button type="submit" class="btn btn-danger">Submit</button>
+    @endif
     </form>
 
 {{-- 
@@ -91,5 +97,4 @@
         <a class="btn btn-primary" href="{{ route('posts.edit',$value->id) }}">Edit</a>
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger">Delete</button>
     </form> --}}
