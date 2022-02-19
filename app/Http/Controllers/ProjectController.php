@@ -29,7 +29,7 @@ class ProjectController extends Controller
     public function create()
     {
         //
-        return view('projects.create');
+        return view('projects.edit');
     }
 
     /**
@@ -64,8 +64,11 @@ class ProjectController extends Controller
         if (!$project = Project::find($id)) {
             return redirect()->route('projects.index');
         }
+        
         //  dd($project->status);
-        return view('projects.show', compact('project'));        
+        // $option = 'ControllerShow';
+        return view('projects.edit', compact('project'));        
+        // return view('projects.edit', [compact('project'), $option]);        
     }
 
     /**

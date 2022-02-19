@@ -1,5 +1,4 @@
 <h1> Project View</h1>
-{{-- C:\wamp64\www\timeline\resources\views\projects\_partials\form.blade.php --}}
 
 {{-- @include('_partials\form') --}}
 {{-- @extends('admin.layouts.app') --}}
@@ -13,12 +12,11 @@
     <input type="text" name="search" placeholder="Filtrar:">
     <button type="submit">Filtrar</button>
 </form> --}}
-<div class="row">
-    <div class="col-lg-12">
-        {{-- <a href="{{ route('projects.create') }}"> --}}
-            {{-- @include('admin.layouts.btn-novo') --}}
-    </div>
 
+<!-- NOVO -->
+<div class="col-lg-12">
+    <button><a href="{{ route('projects.create') }}"> Novo </a></button>
+        {{-- @include('admin.layouts.btn-novo') --}}
 </div>
 
 
@@ -54,15 +52,11 @@
                 <td>
                     <span class="p-relative">
                         <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm ">
-                            <span class="material-icons">
-                                search
-                            </span>
+                            Visualizar
                         </a>
 
                         <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm">
-                            <span class="material-icons">
-                                edit
-                            </span>
+                            Editar
                         </a>
                     </span>
                 </td>

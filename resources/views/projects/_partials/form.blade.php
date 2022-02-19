@@ -7,22 +7,89 @@
 </ul>
 @endif
 
-<form action="{{ route('projects.store') }}" method="post">
-
+@if(route::currentRouteName() == 'projects.create')
+    <form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <input type="text" name="name" id="name" value="{{ $project->name ?? old('name') }}" placeholder="Nome">
-    <input type="text" name="description" id="description" value="{{ $project->description ?? old('description') }}"
-        placeholder="description">
-    <input type="text" name="owner_id" id="owner_id" value="{{ $project->owner_id ?? old('owner_id') }}"
-        placeholder="owner_id">
-    <input type="text" name="member_id" id="member_id" value="{{ $project->member_id ?? old('member_id') }}"
-        placeholder="member_id">
-    <input type="text" name="status_id" id="status_id" value="{{ $project->status_id ?? old('status_id') }}"
-        placeholder="status_id">
-    <input type="text" name="image" id="image" value="{{ $project->image ?? old('image') }}"
-        placeholder="image">
-    <input type="text" name="active" id="active" value="{{ $project->active ?? old('active') }}" placeholder="active">
-    <button type="submit">Enviar</button>
+@elseif(route::currentRouteName() == 'projects.edit')
+    <form action="{{ route('projects.update') }}" method="put" enctype="multipart/form-data">
+    @csrf
+@endif
+<p>
+        <label>ID</label><br>
+        <input type="text" name="id" value="@isset($project){{ $project->id ?? old('id')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Nome</label><br>
+        <input type="text" name="name" value="@isset($project){{ $project->name ?? old('name')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Descrição</label><br>
+        <input type="text" name="description" value="@isset($project){{ $project->description ?? old('description')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Dono</label><br>
+        <input type="number" name="owner_id" value="@isset($project){{ $project->owner_id ?? old('owner_id')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Mebros</label><br>
+        <input type="number" name="member_id" value="@isset($project){{ $project->member_id ?? old('member_id')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Status</label><br>
+        <input type="number" name="status_id" value="@isset($project){{ $project->status_id ?? old('status_id')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Imagem</label><br>
+        <input type="text" name="image" value="@isset($project){{ $project->image ?? old('image')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <p>
+        <label>Ativo</label><br>
+        <input type="number" name="active" value="@isset($project){{ $project->active ?? old('active')}}@endisset"
+            {{Route::currentRouteName()==('projects.show') ? 'disabled' : '' }}>
+    </p>
+    <tr>
+        @isset($project)
+        <td>
+            <span class="p-relative">
+                <a href="{{ route('projects.show', $project->id) }}" class="btn btn-primary btn-sm ">
+                    Visualizar
+                </a>
+    
+                <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm">
+                    <span class="material-icons">
+                        Alterar
+                    </span>
+                </a>
+            </span>    
+        </td>
 
+        @endisset
+        
+        @if(Route::currentRouteName() == 'projects.create')
+           @include('projects._partials.button')
+        @endif 
 
-</form>
+        @if(Route::currentRouteName() == 'projects.edit')
+            @include('projects._partials.button')
+            <a href="{{route('projects.update', $projects->id)}}" > alterar</a>
+        @endif
+        
+        
+    </tr>
+    </form>
+
+{{-- 
+    <form action="{{ route('posts.destroy',$value->id) }}" method="POST">
+        <a class="btn btn-info" href="{{ route('posts.show',$value->id) }}">Show</a>
+        <a class="btn btn-primary" href="{{ route('posts.edit',$value->id) }}">Edit</a>
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form> --}}
