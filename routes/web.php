@@ -24,7 +24,7 @@ Route::get('/status', [StatusController::class, 'index'])->name('status.index');
 // Route::any('/projects/search', [ProjectController::class, 'search'])->name('projects.search');
 Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
 Route::get('/projects/edit/{id}', [ProjectController::class, 'edit'])->name('projects.edit');
-Route::any('/projects/delete/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
+Route::get('/projects/delete/{id}', [ProjectController::class, 'destroy'])->name('projects.destroy');
 Route::put('/projects/{id}', [ProjectController::class, 'update'])->name('projects.update');
 Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
 Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
